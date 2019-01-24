@@ -1,4 +1,5 @@
 # PyQT5
-PyQT5 project. Implement a video player and can be view photos. There is hope insert my the fire.
+PyQT5 project.
+Implement a video player and music player.
+I insert my the fire to have fun.
 
-Implemented video player

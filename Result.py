@@ -1,3 +1,6 @@
+# Created by Mikhail Skoptsov
+# This file contains the GIF animation
+# output function in a separate window
 import pyglet
 import os
 from pyglet.window import Platform
@@ -8,7 +11,7 @@ def generate(name, width, height):
         pyglet.resource.path = ['gif']
         pyglet.resource.reindex()
 
-        files = os.listdir("gif\\")
+        # files = os.listdir("gif\\")
         # print(files)
         animation = pyglet.resource.animation(name + '.gif')
         sprite = pyglet.sprite.Sprite(animation)

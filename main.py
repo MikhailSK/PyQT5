@@ -21,29 +21,37 @@ class MyWidget(QMainWindow):
         super().__init__()
         self.title = "Main menu"
         self.InitUI()
+        self.cams = -1
 
     def InitUI(self):
         uic.loadUi('ui_forms\\main_form.ui', self)
-        self.buttonWindow1.clicked.connect(self.buttonWindow2_onClick)
-        self.buttonWindow2.clicked.connect(self.buttonWindow1_onClick)
-        self.buttonWindow3.clicked.connect(self.buttonWindow3_onClick)
+        self.buttonWindow1.clicked.connect(
+            self.buttonWindow2_onClick)
+        self.buttonWindow2.clicked.connect(
+            self.buttonWindow1_onClick)
+        self.buttonWindow3.clicked.connect(
+            self.buttonWindow3_onClick)
         self.show()
 
-    # Function that closes the main menu and opens the music player
+    # Function that closes the main menu and
+    # opens the music player
     @pyqtSlot()
     def buttonWindow1_onClick(self):
         self.cams = MainWindowMusicPlayer()
         self.cams.show()
         self.close()
 
-    # Function that closes the main menu and opens the video player
+    # Function that closes the main menu and
+    # opens the video player
     @pyqtSlot()
     def buttonWindow2_onClick(self):
         self.cams = MainWindowVideoPlayer()
         self.cams.show()
         self.close()
 
-    # Function that closes the main menu and opens Have Fun
+    # Function that closes the main menu and
+    # opens Have Fun
+    @pyqtSlot()
     def buttonWindow3_onClick(self):
         self.cams = MyFunWidget()
         self.cams.show()

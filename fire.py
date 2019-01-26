@@ -145,10 +145,13 @@ class Fire:
             for i in range(self.width):
                 for j in range(self.height):
                     draw.point((i - 1, j - 1),
-                               self.colors[int(arr_stat[i - 1, j - 1])])
+                               self.colors[
+                                   int(arr_stat[i - 1, j - 1])])
                     # print(
-                    #     str(self.colors[arr_stat[i, j]]) +
-                    #     (80 - len(str(self.colors[arr_stat[i, j]]))) * "-" + str(number))
+                    #     str(self.colors[
+                    #     arr_stat[i, j]]) +
+                    #     (80 - len(str(self.colors[arr_stat[
+                    #     i, j]])))* "-" + str(number))
 
             # add blur
             for i in range(1, self.width - 1):
@@ -169,7 +172,8 @@ class Fire:
                                  + self.colors[
                                      int(arr_stat[i + 1, j + 1])][0]
                                  + self.colors[
-                                     int(arr_stat[i - 1, j + 1])][0]) // 8,
+                                     int(arr_stat[i - 1, j + 1])][0])
+                                // 8,
                                 (self.colors[
                                      int(arr_stat[i - 1, j])][1]
                                  + self.colors[
@@ -185,7 +189,8 @@ class Fire:
                                  + self.colors[
                                      int(arr_stat[i + 1, j + 1])][1]
                                  + self.colors[
-                                     int(arr_stat[i - 1, j + 1])][1]) // 8,
+                                     int(arr_stat[i - 1, j + 1])][1])
+                                // 8,
                                 (self.colors[
                                      int(arr_stat[i - 1, j])][2]
                                  + self.colors[

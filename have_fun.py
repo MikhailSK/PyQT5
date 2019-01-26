@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow,\
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from fire import Fire
-from Result import generate
+from Result import gen_result
 
 
 class MyFunWidget(QMainWindow):
@@ -81,7 +81,7 @@ class MyFunWidget(QMainWindow):
             # print("have_fun", self.name_par)
             if stat_gen == "success":
                 self.label.setText("SUCCESS")
-                generate(self.name_par, self.width_par,
+                gen_result(self.name_par, self.width_par,
                          self.height_par)
                 # self.generator()
                 self.label.setText("Enter the parameters"

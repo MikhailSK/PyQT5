@@ -6,7 +6,7 @@ import os
 from pyglet.window import Platform
 
 
-def generate(name, width, height):
+def gen_result(name, width, height):
     try:
         pyglet.resource.path = ['gif']
         pyglet.resource.reindex()

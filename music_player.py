@@ -22,13 +22,18 @@ class MainWindowMusicPlayer(QMainWindow):
         self.currentPlaylist = QMediaPlaylist()
         self.player = QMediaPlayer()
         self.userAction = -1  # 0 - stopped, 1 - playing 2 - paused
-        self.player.mediaStatusChanged.connect(self.qmp_media_status_changed)
-        self.player.stateChanged.connect(self.qmp_state_changed)
-        self.player.positionChanged.connect(self.qmp_position_changed)
-        self.player.volumeChanged.connect(self.qmp_volume_changed)
+        self.player.mediaStatusChanged.connect(
+            self.qmp_media_status_changed)
+        self.player.stateChanged.connect(
+            self.qmp_state_changed)
+        self.player.positionChanged.connect(
+            self.qmp_position_changed)
+        self.player.volumeChanged.connect(
+            self.qmp_volume_changed)
         self.player.setVolume(60)
         # Status bar
-        self.statusBar().showMessage('No Media :: %d' % self.player.volume())
+        self.statusBar().showMessage('No Media'
+                                     ' :: %d' % self.player.volume())
         self.home_screen()
 
     def home_screen(self):
@@ -40,7 +45,8 @@ class MainWindowMusicPlayer(QMainWindow):
 
         controlBar = self.add_controls()
 
-        # need to add both information screen and control bar to the central widget.
+        # need to add both information screen
+        # and control bar to the central widget.
         centralWidget = QWidget()
         centralWidget.setLayout(controlBar)
         self.setCentralWidget(centralWidget)
@@ -122,7 +128,8 @@ class MainWindowMusicPlayer(QMainWindow):
     # Music playback function
     def play_handler(self):
         self.userAction = 1
-        self.statusBar().showMessage('Playing at Volume %d' % self.player.volume())
+        self.statusBar().showMessage('Playing at Volume %d'
+                                     % self.player.volume())
         if self.player.state() == QMediaPlayer.StoppedState:
             if self.player.mediaStatus() == QMediaPlayer.NoMedia:
                 print(self.currentPlaylist.mediaCount())
@@ -130,9 +137,11 @@ class MainWindowMusicPlayer(QMainWindow):
                     self.open_file()
                 if self.currentPlaylist.mediaCount() != 0:
                     self.player.setPlaylist(self.currentPlaylist)
-            elif self.player.mediaStatus() == QMediaPlayer.LoadedMedia:
+            elif self.player.mediaStatus() ==\
+                    QMediaPlayer.LoadedMedia:
                 self.player.play()
-            elif self.player.mediaStatus() == QMediaPlayer.BufferedMedia:
+            elif self.player.mediaStatus() ==\
+                    QMediaPlayer.BufferedMedia:
                 self.player.play()
         elif self.player.state() == QMediaPlayer.PlayingState:
             pass
@@ -142,9 +151,12 @@ class MainWindowMusicPlayer(QMainWindow):
     # Music pause function
     def pause_handler(self):
         self.userAction = 2
-        self.statusBar().showMessage('Paused %s at position %s at Volume %d' %
-                                     (self.player.metaData(QMediaMetaData.Title),
-                                      self.centralWidget().layout().itemAt(0).layout().
+        self.statusBar().showMessage('Paused %s at position'
+                                     ' %s at Volume %d' %
+                                     (self.player.metaData(
+                                         QMediaMetaData.Title),
+                                      self.centralWidget().layout()
+                                          .itemAt(0).layout().
                                       itemAt(0).widget().text(),
                                       self.player.volume()))
         self.player.pause()
@@ -182,12 +194,15 @@ class MainWindowMusicPlayer(QMainWindow):
 
     # Music time change function
     def qmp_position_changed(self, position, senderType=False):
-        sliderLayout = self.centralWidget().layout().itemAt(0).layout()
+        sliderLayout = self.centralWidget().layout().itemAt(0)\
+            .layout()
         if not senderType:
             sliderLayout.itemAt(1).widget().setValue(position)
         # update the text label
-        sliderLayout.itemAt(0).widget().setText('%d:%02d' % (int(position / 60000),
-                                                             int((position / 1000) % 60)))
+        sliderLayout.itemAt(0).widget()\
+            .setText('%d:%02d' %
+                     (int(position / 60000),
+                      int((position / 1000) % 60)))
 
     def seek_position(self, position):
         sender = self.sender()
@@ -215,7 +230,8 @@ class MainWindowMusicPlayer(QMainWindow):
 
     # File open function
     def file_open(self):
-        fileAc = QAction(QIcon('icons\\open.png'), 'Open File', self)
+        fileAc = QAction(QIcon('icons\\open.png'),
+                         'Open File', self)
         fileAc.setShortcut('Ctrl+O')
         fileAc.setStatusTip('Open File')
         fileAc.triggered.connect(self.open_file)
@@ -223,35 +239,43 @@ class MainWindowMusicPlayer(QMainWindow):
 
     # File opening function
     def open_file(self):
-        file_Chosen = QFileDialog.getOpenFileUrl(self, 'Open Music File',
-                                                 expanduser('~'), 'Audio (*.mp3 *.ogg *.wav)',
-                                                 '*.mp3 *.ogg *.wav')
+        file_Chosen = QFileDialog.getOpenFileUrl(
+            self, 'Open Music File', expanduser('~'),
+            'Audio (*.mp3 *.ogg *.wav)', '*.mp3 *.ogg *.wav')
         if file_Chosen is not None:
-            self.currentPlaylist.addMedia(QMediaContent(file_Chosen[0]))
+            self.currentPlaylist.addMedia(
+                QMediaContent(file_Chosen[0]))
 
     # Folder open function
     def folder_open(self):
-        folderAc = QAction(QIcon('icons\\open_fld.png'), 'Open Folder', self)
+        folderAc = QAction(QIcon('icons\\open_fld.png'),
+                           'Open Folder', self)
         folderAc.setShortcut('Ctrl+D')
-        folderAc.setStatusTip('Open Folder (Will add all the files in the folder) ')
+        folderAc.setStatusTip('Open Folder '
+                              '(Will add all the files in'
+                              ' the folder)')
         folderAc.triggered.connect(self.add_files)
         return folderAc
 
     # Folder opening function
     def add_files(self):
-        folder_Chosen = QFileDialog.getExistingDirectory(self,
-                                                         'Open Music Folder', expanduser('~'))
+        folder_Chosen = QFileDialog\
+            .getExistingDirectory(self,
+                                  'Open Music Folder',
+                                  expanduser('~'))
         if folder_Chosen is not None:
             it = QDirIterator(folder_Chosen)
             it.next()
             while it.hasNext():
-                if it.fileInfo().isDir() == False and it.filePath() != '.':
+                if it.fileInfo().isDir() == False\
+                        and it.filePath() != '.':
                     fInfo = it.fileInfo()
                     print(it.filePath(), fInfo.suffix())
                     if fInfo.suffix() in ('mp3', 'ogg', 'wav'):
                         print('added file ', fInfo.fileName())
                         self.currentPlaylist. \
-                            addMedia(QMediaContent(QUrl.fromLocalFile(it.filePath())))
+                            addMedia(QMediaContent(
+                            QUrl.fromLocalFile(it.filePath())))
                 it.next()
 
     # Song information function

@@ -19,7 +19,8 @@ def gen_result(name, width, height):
         w = width
         h = height
 
-        # screen = Platform().get_default_display().get_default_screen()
+        # screen = Platform().get_default_display()
+        # .get_default_screen()
         window = pyglet.window.Window(width=w, height=h)
 
         # window.set_fullscreen(True)

@@ -20,13 +20,15 @@ class MainWindowVideoPlayer(QMainWindow):
 
         self.resize(700, 500)
 
-        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
+        self.mediaPlayer = QMediaPlayer(None,
+                                        QMediaPlayer.VideoSurface)
 
         videoWidget = QVideoWidget()
 
         self.playButton = QPushButton()
         self.playButton.setEnabled(False)
-        self.playButton.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
+        self.playButton.setIcon(self.style()
+                                .standardIcon(QStyle.SP_MediaPlay))
         self.playButton.clicked.connect(self.play)
 
         self.positionSlider = QSlider(Qt.Horizontal)
@@ -38,13 +40,15 @@ class MainWindowVideoPlayer(QMainWindow):
                                       QSizePolicy.Maximum)
 
         # Create new action
-        openAction = QAction(QIcon('icons\\open.png'), '&Open', self)
+        openAction = QAction(QIcon('icons\\open.png'),
+                             '&Open', self)
         openAction.setShortcut('Ctrl+O')
         openAction.setStatusTip('Open movie')
         openAction.triggered.connect(self.openFile)
 
         # Create exit action
-        exitAction = QAction(QIcon('icons\\exit.png'), '&Exit', self)
+        exitAction = QAction(QIcon('icons\\exit.png'),
+                             '&Exit', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip('Exit application')
         exitAction.triggered.connect(self.exitCall)
@@ -76,10 +80,14 @@ class MainWindowVideoPlayer(QMainWindow):
         wid.setLayout(layout)
 
         self.mediaPlayer.setVideoOutput(videoWidget)
-        self.mediaPlayer.stateChanged.connect(self.mediaStateChanged)
-        self.mediaPlayer.positionChanged.connect(self.positionChanged)
-        self.mediaPlayer.durationChanged.connect(self.durationChanged)
-        self.mediaPlayer.error.connect(self.handleError)
+        self.mediaPlayer.stateChanged.connect(
+            self.mediaStateChanged)
+        self.mediaPlayer.positionChanged.connect(
+            self.positionChanged)
+        self.mediaPlayer.durationChanged.connect(
+            self.durationChanged)
+        self.mediaPlayer.error.connect(
+            self.handleError)
 
     def openFile(self):
         fileName, _ = QFileDialog.getOpenFileName(self, "Open Movie",
@@ -119,7 +127,8 @@ class MainWindowVideoPlayer(QMainWindow):
 
     def handleError(self):
         self.playButton.setEnabled(False)
-        self.errorLabel.setText("Error: " + self.mediaPlayer.errorString())
+        self.errorLabel.setText("Error: "
+                                + self.mediaPlayer.errorString())
 
 
 if __name__ == '__main__':

@@ -23,38 +23,43 @@ class Fire:
                        0: (150, 165, 200),
                        1: (7, 7, 7),
                        2: (31, 7, 7),
-                       3: (47, 15, 7),
-                       4: (87, 23, 7),
-                       5: (103, 31, 7),
-                       6: (119, 17, 7),
-                       7: (143, 39, 7),
-                       8: (159, 47, 7),
-                       9: (175, 63, 7),
-                       10: (191, 71, 7),
-                       11: (199, 71, 7),
-                       12: (233, 79, 7),
-                       13: (223, 87, 7),
-                       14: (223, 87, 7),
-                       15: (215, 103, 15),
-                       16: (207, 111, 15),
-                       17: (207, 119, 15),
-                       18: (207, 127, 15),
-                       19: (207, 135, 23),
-                       20: (199, 135, 23),
-                       21: (199, 143, 23),
-                       22: (199, 151, 23),
-                       23: (191, 159, 31),
-                       24: (191, 159, 31),
-                       25: (191, 167, 39),
-                       26: (191, 167, 39),
-                       27: (191, 175, 47),
-                       28: (183, 175, 47),
-                       29: (183, 183, 47),
-                       30: (183, 183, 55),
-                       31: (207, 207, 111),
-                       32: (223, 223, 159),
-                       33: (239, 239, 199),
-                       34: (255, 255, 255)}
+                       3: (40, 10, 7),
+                       4: (47, 15, 7),
+                       5: (60, 15, 7),
+                       6: (87, 23, 7),
+                       7: (103, 31, 7),
+                       8: (119, 17, 7),
+                       9: (143, 39, 7),
+                       10: (150, 42, 7),
+                       11: (159, 47, 7),
+                       12: (175, 63, 7),
+                       13: (191, 71, 7),
+                       14: (199, 71, 7),
+                       15: (233, 79, 7),
+                       16: (223, 87, 7),
+                       17: (223, 87, 7),
+                       18: (215, 103, 15),
+                       19: (210, 103, 14),
+                       20: (207, 111, 15),
+                       21: (207, 119, 15),
+                       22: (203, 123, 15),
+                       23: (207, 127, 15),
+                       24: (207, 135, 23),
+                       25: (199, 135, 23),
+                       26: (199, 143, 23),
+                       27: (199, 151, 23),
+                       28: (191, 159, 31),
+                       29: (191, 159, 31),
+                       30: (191, 167, 39),
+                       31: (191, 167, 39),
+                       32: (191, 175, 47),
+                       33: (183, 175, 47),
+                       34: (183, 183, 47),
+                       35: (183, 183, 55),
+                       36: (207, 207, 111),
+                       37: (223, 223, 159),
+                       38: (239, 239, 199),
+                       39: (255, 255, 255)}
 
         # parameters
         self.img_arr = []
@@ -79,7 +84,9 @@ class Fire:
                     arr_stat[i, j - 1] = 34
 
             image = Image.new("RGB", (self.width, self.height))
+
             # image.save("img.png")
+
             draw = ImageDraw.Draw(image)
 
             arr_bool = np.ones(self.width)
@@ -94,18 +101,20 @@ class Fire:
                         if random.randint(0, self.drops_count) \
                                 not in range(0, 5):
                             # first 5 lines of pixels
-                            if arr_stat[i, j - 2] < 34 and j < 5:
+                            if arr_stat[i, j - 2] < 34 and\
+                                    j < int(self.height * 0.02):
                                 stat = arr_stat[i, j - 2] - \
                                        random.randint(-1, 1)
                             # 5-30 lines of pixels
-                            elif arr_stat[i, j - 2] < 34 and j < 30:
+                            elif arr_stat[i, j - 2] < 34 and\
+                                    j < int(self.height * 0.08):
                                 stat = arr_stat[i, j - 2] - \
                                        random.randint(0, 1)
                                 if stat < 17:
                                     stat = random.randint(18, 27)
                             # other
                             else:
-                                stat = arr_stat[i, j - 2] - \
+                                stat = arr_stat[i, j - 2] -\
                                        random.randint(0, 1)
                             if stat <= 1:
                                 stat = 1
@@ -114,19 +123,21 @@ class Fire:
                     # if no drops
                     else:
                         # first 5 lines of pixels
-                        if arr_stat[i, j - 2] < 34 and j < 5:
-                            stat = arr_stat[i, j - 2] - \
-                                   random.randint(-1, 1)
+                        if arr_stat[i, j - 2] < 34 and\
+                                j < int(self.height * 0.02):
+                            stat = arr_stat[i, j - 2]\
+                                   - random.randint(-1, 1)
                         # 5-30 lines of pixels
-                        elif arr_stat[i, j - 2] < 34 and j < 30:
-                            stat = arr_stat[i, j - 2] - \
-                                   random.randint(0, 1)
+                        elif arr_stat[i, j - 2] < 34 and\
+                                j < int(self.height * 0.08):
+                            stat = arr_stat[i, j - 2]\
+                                   - random.randint(0, 1)
                             if stat < 17:
                                 stat = random.randint(18, 27)
                         # other
                         else:
-                            stat = arr_stat[i, j - 2] - \
-                                   random.randint(0, 1)
+                            stat = arr_stat[i, j - 2]\
+                                   - random.randint(0, 1)
                         if stat <= 1:
                             stat = 1
                             arr_bool[i] = j
